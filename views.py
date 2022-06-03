@@ -7,6 +7,13 @@ import config
 from loader import app
 
 
+@app.route('/projects')
+def projects():
+    walker = os.walk(config.PROJECTS_DIR)
+    items = next(walker)
+    return {'ok': True, 'projects': items[1]}
+
+
 @app.route('/get/<path:path>')
 def get(path: str):
     path = config.PROJECTS_DIR / path
