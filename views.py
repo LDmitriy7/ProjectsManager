@@ -3,7 +3,6 @@ import subprocess
 
 from flask import request
 
-import api
 import config
 from loader import app
 
