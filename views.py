@@ -24,8 +24,6 @@ def edit(file_path: str):
 
 @app.route('/deploy/<project>')
 def deploy(project: str):
-    compose_file = config.PROJECTS_DIR / project / 'docker/docker-compose.yml'
-
     with api.ChangeDir(config.PROJECTS_DIR / project):
         os.system('. scripts/deploy.sh')
 
