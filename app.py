@@ -1,3 +1,4 @@
 from views import app
+import config
 
-app.run(port=5001)
+app.run(host=config.APP_HOST, port=config.APP_PORT)
