@@ -1,5 +1,7 @@
 import os
 
+from flask import request
+
 import api
 import config
 from loader import app
@@ -24,11 +26,27 @@ def get(path: str):
         return {'ok': False, 'error': e}
 
 
-# elif text := request.json['text']:
-#     with open(file_path, encoding='utf-8', mode='w') as file:
-#         file.write(text.replace('\r\n', '\n'))
-#
-#     return {'ok': True}
+@app.route('/edit/<path:path>', methods=['POST'])
+def edit(path: str):
+    path = config.PROJECTS_DIR / path
+
+    if not os.path.exists(path):
+        return {'ok': False, 'error': 'Not found'}
+
+    if os.path.isdir(path):
+        return {'ok': False, 'error': 'Not a file'}
+
+    text = request.json.get('text')
+
+    if text is None:
+        return {'ok': False, 'error': 'Invalid text'}
+
+    try:
+        with open(path, encoding='utf-8', mode='w') as file:
+            file.write(text.replace('\r\n', '\n'))
+            return {'ok': True}
+    except Exception as e:
+        return {'ok': False, 'error': e}
 
 
 @app.route('/deploy/<project>')
