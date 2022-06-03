@@ -28,3 +28,11 @@ def deploy(project: str):
         os.system('. scripts/deploy.sh')
 
     return {'ok': True}
+
+
+@app.route('/stop/<project>')
+def deploy(project: str):
+    with api.ChangeDir(config.PROJECTS_DIR / project):
+        os.system('. scripts/stop.sh')
+
+    return {'ok': True}
