@@ -31,7 +31,7 @@ def deploy(project: str):
 
 
 @app.route('/stop/<project>')
-def deploy(project: str):
+def stop(project: str):
     with api.ChangeDir(config.PROJECTS_DIR / project):
         os.system('. scripts/stop.sh')
 
