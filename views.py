@@ -15,7 +15,7 @@ def get(path: str):
     if os.path.isdir(path):
         walker = os.walk(path)
         items = next(walker)
-        return {'ok': True, 'type': 'dir', 'files': items[1] + items[2]}
+        return {'ok': True, 'type': 'dir', 'items': items[1] + items[2]}
 
     try:
         with open(path, encoding='utf-8') as file:
