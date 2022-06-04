@@ -66,3 +66,18 @@ def deploy(project: str):
 def stop(project: str):
     subprocess.run('. scripts/stop.sh &', shell=True, cwd=config.PROJECTS_DIR / project)
     return {'ok': True}
+
+
+@app.route('/export/handlers/<project>')
+def export_handlers(project: str):
+    source_file = config.PROJECTS_DIR / project / 'handlers'
+    target_file = config.BOTS_DIR / project / 'app/handlers/misc.py'
+
+    try:
+        with open(source_file, encoding='utf-8') as file:
+            text = file.read()
+        with open(target_file, encoding='utf-8', mode='w') as file:
+            file.write(text)
+        return {'ok': True}
+    except Exception as e:
+        return {'ok': False, 'error': e}
