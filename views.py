@@ -58,13 +58,14 @@ def edit(path: str):
 
 @app.route('/deploy/<project>')
 def deploy(project: str):
-    subprocess.run('. scripts/deploy.sh &', shell=True, cwd=config.PROJECTS_DIR / project)
+    export_handlers(project)
+    subprocess.run('. scripts/deploy.sh &', shell=True, cwd=config.BOTS_DIR / project)
     return {'ok': True}
 
 
 @app.route('/stop/<project>')
 def stop(project: str):
-    subprocess.run('. scripts/stop.sh &', shell=True, cwd=config.PROJECTS_DIR / project)
+    subprocess.run('. scripts/stop.sh &', shell=True, cwd=config.BOTS_DIR / project)
     return {'ok': True}
 
 
