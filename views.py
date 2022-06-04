@@ -76,7 +76,7 @@ def export_handlers(project: str):
 
     try:
         with open(source_file, encoding='utf-8') as file:
-            text = file.read()
+            text = 'from core import *\n\n\n' + file.read()
         with open(target_file, encoding='utf-8', mode='w') as file:
             file.write(text)
         return {'ok': True}
